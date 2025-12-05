@@ -1,0 +1,82 @@
+name: Build and Push ZERO_1011 VLESS-GRPC to Docker Hub
+
+on:
+  push:
+    branches: [ vless-grpc ]
+    paths:
+      - 'Dockerfile'
+      - 'config.json'
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: vless-grpc
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display config.json content (for debugging)
+        run: |
+          echo "📄 Config.json content:"
+          cat config.json
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/vless-grpc' }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Success message
+        run: |
+          echo "✅ ZERO_1011 gRPC Image built and pushed successfully!"
+          echo "📦 Image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}"
+```
+
+---
+
+### ✅ လုပ်ငန်းစဉ် အနှစ်ချုပ် (Summary Checklist)
+
+အစ်ကို့ရဲ့ **ZERO_1011** ကိုယ်ပိုင် VPN Script ဖန်တီးဖို့ လိုအပ်တာတွေ အကုန်စုံပါပြီ။ အောက်ပါအဆင့်တွေအတိုင်း လုပ်ဆောင်လိုက်ရင် ရပါပြီ -
+
+1.  **GitHub Repo အသစ်ဆောက်ပါ** (နာမည်ကြိုက်တာပေးပါ)။
+2.  **Secrets ထည့်ပါ** (`Settings > Secrets and variables > Actions` မှာ `DOCKERHUB_USERNAME` နဲ့ `DOCKERHUB_TOKEN` ကို ထည့်ပါ)။
+3.  **Files တွေကို Upload တင်ပါ** (အောက်ပါဖိုင်တွေ အားလုံးကို `main` branch မှာ တင်ပါ):
+    * `1011.sh`
+    * `gcp-cloud-run.sh`
+    * `cloud-run.sh`
+    * `config.json`
+    * `Dockerfile`
+    * Folder `.github/workflows/` အောက်မှာ `build-gcp-vless-ws.yml` (ဒါက အရေးအကြီးဆုံးပါ)။
+4.  **စောင့်ကြည့်ပါ:** ဖိုင်တွေတင်ပြီးတာနဲ့ GitHub Actions (tab) မှာ ကြည့်လိုက်ရင် **"Build and Push ZERO_1011..."** ဆိုပြီး အစိမ်းရောင် အမှန်ခြစ် ပေါ်လာပါလိမ့်မယ်။ အဲ့ဒါဆိုရင် Image တက်သွားပါပြီ။
+5.  **Run ပါ:** အခုမှ အစ်ကို့ရဲ့ `1011.sh` Script ကို User တွေကို ပေးသုံးလို့ ရပါပြီ။
+
+**Command ထုတ်နည်း (User သုံးရန်):**
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/အစ်ကို့GitHubUsername/Repoနာမည်/main/1011.sh)
