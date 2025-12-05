@@ -2,7 +2,7 @@ name: Build and Push ZERO_1011 VLESS-GRPC to Docker Hub
 
 on:
   push:
-    branches: [ vless-grpc ]
+    branches: [ main ]
     paths:
       - 'Dockerfile'
       - 'config.json'
