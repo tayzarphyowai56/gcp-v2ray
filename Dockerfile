@@ -1,10 +1,9 @@
 FROM alpine:latest
 
-# Set working directory (ဖိုင်တွေ ရှုပ်ပွမနေအောင် သီးသန့်နေရာထားပါမယ်)
+
 WORKDIR /app
 
-# Install dependencies
-# (ca-certificates ထပ်ထည့်ပေးထားပါတယ်၊ HTTPS ချိတ်ဆက်မှုတွေအတွက် အရေးကြီးလို့ပါ)
+
 RUN apk add --no-cache \
     bash \
     curl \
@@ -18,8 +17,7 @@ RUN wget -q https://github.com/v2fly/v2ray-core/releases/download/v5.7.0/v2ray-l
     rm v2ray-linux-64.zip && \
     chmod +x v2ray
 
-# Copy the modified config file
-# (ဒါက အရေးအကြီးဆုံးပါ၊ ကျွန်တော်တို့ပြင်ထားတဲ့ config.json ကို Image ထဲထည့်ပါမယ်)
+
 COPY config.json .
 
 # Expose port (Cloud Run requires this)
