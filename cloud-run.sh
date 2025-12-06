@@ -391,7 +391,7 @@ printf "   ${C_1011_CYAN}${BOLD}%s${RESET}\n\n" "${URL_CANONICAL}"
 
 # =================== VLESS Configuration ===================
 # Note: This UUID can be changed but must match config.json
-VLESS_UUID="ba0e3984-ccc9-48a3-8074-b2f507f41ce8"
+VLESS_UUID="481cd88d-9b52-44a0-b8cd-f28a833a70ec"
 # Note: Path modified to match ZERO_1011
 URI="vless://${VLESS_UUID}@vpn.googleapis.com:443?path=%2F%40zero1011&security=tls&encryption=none&host=${CANONICAL_HOST}&type=ws&sni=${CANONICAL_HOST}#ZERO-1011-VLESS-WS"
 
