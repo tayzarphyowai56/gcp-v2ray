@@ -258,9 +258,9 @@ kv "URL:" "${C_CYAN}${BOLD}${URL_CANONICAL}${RESET}"
 
 # =================== Protocol URLs ===================
 TROJAN_PASS="Trojan-1011"
-VLESS_UUID="ba0e3984-ccc9-48a3-8074-b2f507f41ce8"
-VLESS_UUID_GRPC="ba0e3984-ccc9-48a3-8074-b2f507f41ce8"
-VMESS_UUID="ba0e3984-ccc9-48a3-8074-b2f507f41ce8"
+VLESS_UUID="481cd88d-9b52-44a0-b8cd-f28a833a70ec"
+VLESS_UUID_GRPC="481cd88d-9b52-44a0-b8cd-f28a833a70ec"
+VMESS_UUID="481cd88d-9b52-44a0-b8cd-f28a833a70ec"
 
 make_vmess_ws_uri(){
   local host="$1"
