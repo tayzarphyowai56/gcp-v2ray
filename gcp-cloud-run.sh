@@ -389,6 +389,7 @@ printf "\n${C_1011_GREEN}${BOLD}📡 SERVICE ENDPOINT:${RESET}\n"
 printf "   ${C_1011_CYAN}${BOLD}%s${RESET}\n\n" "${URL_CANONICAL}"
 
 # =================== VLESS Configuration ===================
+# UPDATED UUID
 VLESS_UUID="481cd88d-9b52-44a0-b8cd-f28a833a70ec"
 # Note: Path updated to /@zero1011. SNI logic kept as vpn.googleapis.com per original file.
 URI="vless://${VLESS_UUID}@vpn.googleapis.com:443?path=%2F%40zero1011&security=tls&encryption=none&host=${CANONICAL_HOST}&type=ws&sni=vpn.googleapis.com#ZERO-1011-VLESS-WS"
